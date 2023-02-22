@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="../static/css/voting_page.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a44a2bebd5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <title>Voting</title>
+</head>
+<body>
+<!-- Static Header -->
+<header>
+    <h2 class="top">INCOSUF</h2>
+    <hr class="line">
+</header>
+
+
+
+<div class="all container">
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+        {% if "voted" in message%}
+            <div class="alert alert-warning container" role="alert">
+                <center><h4>{{message}}</h4></center>
+            </div>
+        {% endif %}
+    {% endfor %}
+    
+    <br>
+    <div class="unnamed">
+        <h4><b>{{position.position}}</b></h4>
+    </div>
+    <br>
+    <center>
+
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#skip_modal">
+            Skip
+        </button>
+
+    </center>
+
+    {% if candidate | length < 1 %}
+        <p>
+            <h3>Nothing to show here...</h3>
+        </p>
+    {% else %}
+
+    
+        <div class="cover">
+
+            {%for c in candidate %}
+
+            <form action="/voting_page/{{next_position}}" method="post">
+
+                <input type="hidden" id="custId" name="cur_pos" value="{{position.position}}">
+
+                <div class="card">
+
+                    <div class="square">
+                        <img src="../static/uploads/{{c.filename}}">
+                    </div>
+
+                    <div class="container">
+                        
+                        <input type="text" name="name" value="{{c.name}}" readonly>
+
+                        <p>{{c.college}}</p>
+
+                        <center>
+
+                            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#vote_modal_{{c.id}}">
+                                Vote
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="vote_modal_{{c.id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                                Are you sure you want to vote for:
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <b>{{position.position}}: </b>{{c.name}}   
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            
+                                            <a href="/voting_page/{{next_position}}">
+                                                <button type="submit" class="btn btn-dark" name="vote_button" id="liveToastBtn" onclick="showToast()">
+                                                    Vote
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </center>
+
+                        <!-- Toast -->
+                        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                                <div class="toast-header">
+                                    <img src="{{ url_for('static', filename='logo.png') }}" style="width:20px; height:20px;" class="rounded me-2" alt="...">
+                                    <strong class="me-auto">IncoSuf</strong>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    <div class="d-flex align-items-center">
+                                        <strong>Processing your vote in our blockchain...</strong>
+                                        <div class="spinner-border text-primary spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
+                                    </div>
+                                    <!-- <center>
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>  
+                                        </div>
+                                        <b>Processing your vote in our blockchain...</b>
+                                    </center> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            function showToast() {
+  
+                            var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+                            var toastList = toastElList.map(function(toastEl) {
+                                
+                                return new bootstrap.Toast(toastEl)
+                            })
+                            toastList.forEach(toast => toast.show())
+                            }
+                        </script>
+
+                    </div>
+                </div>
+            </form>        
+            {% endfor %}
+        </div>
+    {% endif %}
+
+</div>
+
+<!-- Alert -->
+<center>
+<div class="modal fade" id="skip_modal" tabindex="-1" aria-labelledby="skip_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Are you sure you want to skip voting for <b>{{position.position}}</b>?
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    
+                    <a href="/voting_page/{{next_position}}">
+                        <button type="button" class="btn btn-danger" name="skip_button">Skip</button>
+                    </a>
+                </center>
+            </div>
+            <!-- <div class="modal-footer">
+            </div> -->
+        </div>
+    </div>
+</div>
+</center>
+
+
+<!-- Static Footer -->
+<footer>
+    <hr class="line">
+    <p>&#64;2022 by IncoSuf </p>
+</footer>
+
+
+</body>
+</html>

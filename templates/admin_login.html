@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="../static/css/admin_login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    </head>
+<body>
+<!-- Static Header -->
+<header>
+    <a href="{{url_for('home_page')}}" class="admin_button">
+        <button class="btn btn-dark" class="admin_button">Home</button>
+    </a>
+    <h2 class="top">INCOSUF</h2>
+    <hr class="line">
+</header>
+
+
+
+
+
+<!-- Static Wrapper -->
+<div class="content-wrapper d-flex flex-column justify-content-center align-items-center">
+
+    <!-- Dynamic Content -->
+    <form method="post">
+
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+    
+            <div class="alert alert-warning" role="alert">
+                <center>
+                    <h4>{{message}}</h4>
+                </center>
+            </div>
+
+        {% endfor %}
+
+        <p class="login">Admin Login</p>
+
+            <section>
+
+                <div class="d-flex flex-grow-1 align-items-center">
+                    <p>Username:</p>
+                </div>
+
+                <div class="d-flex flex-grow-1 align-items-center">
+                    <div class="input-group input-group-lg mb-3">
+                        <input type="text" class="form-control bg-light fs-6" placeholder="Username" name="username" required>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-grow-1 align-items-center">
+                    <p>Password:</p>
+                </div> 
+
+                <div class="d-flex flex-grow-1 align-items-center">
+                    <div class="input-group input-group-lg mb-3">
+                        <input type="password" class="form-control bg-light fs-6" name="password" required>
+                    </div>
+                </div>
+        
+                    <center>
+                        <button type="submit" class="btn btn-dark btn-lg">Login</button>
+                    </center>
+
+            </section>  
+
+    </form>
+
+</div>
+    
+
+
+
+
+
+<!-- Static Footer -->
+    <footer>
+        <hr class="line">
+        <p>&#64;2022 by IncoSuf </p>
+    </footer>
+
+</body>
+</html>

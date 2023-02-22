@@ -1,0 +1,138 @@
+/*------------------------------ Static CSS ------------------------------*/
+header{
+    margin: 0 20%;
+}
+
+header h2{
+    text-align: center;
+}
+
+header hr{
+    width: 100%;
+}
+
+body{
+    font-family: Geneva,sans-serif; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+footer{
+    position: relative;
+    margin: 0 20%;
+    bottom: 0;
+}
+footer p{
+    text-align: center;
+    font-size: larger;
+}
+
+
+
+/*------------------------------ Dynamic CSS ------------------------------*/
+.all{ 
+    flex-grow: 1;
+    /* margin:0 20%; */
+    min-height: calc(100vh - 71.39px - 77.8px)
+}
+.card{
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+transition: 0.3s;
+}
+
+
+.card:hover{
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.card_container{
+padding: 2px 16px;
+/* width: 75%; */
+font-size: large;
+/* margin-bottom: 10px; */
+padding-bottom: 3%;
+}
+
+/* .container h4{
+padding: 2px;
+width: 75%;
+margin: 4px 0;
+font-size: 22px;
+}
+
+.container p{
+margin: 5px 0 4px 0;
+} */
+
+.card{
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+transition: 0.3s;
+border-radius: 5px;
+gap: 16px;
+}
+
+.square{
+    width: 250px;
+    height: 250px;
+}
+
+.square img{
+border-radius: 5px 5px 0 0;
+/* width: auto; */
+/* height: auto; */
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.cover{
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+gap: 16px;
+margin: 0 auto;
+justify-content: center;
+align-items: center;
+width: 100%;
+padding: 2% 0;
+}
+
+button{
+    padding-bottom: 2%;
+}
+
+.inl {
+    display: inline-block;
+}
+
+#left_modal {
+    text-align: left;
+}
+
+.card_container h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:215px; /* some width */
+}
+
+.card_container h4:hover {
+    overflow: visible;
+    max-width: 215px;
+    white-space: normal;
+}
+
+.card_container p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:215px; /* some width */
+}
+
+.card_container p:hover {
+    overflow: visible;
+    max-width: 215px;
+    white-space: normal;
+}

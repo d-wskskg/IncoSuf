@@ -1,0 +1,118 @@
+/*------------------------------ Static CSS ------------------------------*/
+header{
+    margin: 0 20%;
+}
+
+header h2{
+    text-align: center;
+}
+
+header hr{
+    width: 100%;
+}
+
+body{
+    font-family: Geneva,sans-serif; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+footer{
+    position: relative;
+    margin: 0 20%;
+    bottom: 0;
+}
+footer p{
+    text-align: center;
+    font-size: larger;
+}
+
+.all{ 
+    flex-grow: 1;
+    margin:0 20%;
+    min-height: calc(100vh - 71.39px - 77.8px)
+}
+
+
+
+
+
+/*------------------------------ Dynamic CSS ------------------------------*/
+.unnamed{
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.card{
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+transition: 0.3s;
+}
+
+
+.card:hover{
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+
+
+
+.circle{
+    width: 200px;
+    height: 200px;
+    background-color:rgb(49, 49, 49) ;
+    border-radius: 50%;
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.5);
+}
+
+.circle img{
+border-radius: 5px 5px 0 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+border-radius: 50%;
+border: 7px solid rgb(49, 49, 49);
+box-sizing: border-box;
+}
+
+.cover{
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+row-gap: 20px;
+column-gap: 50px;
+margin: 0 auto;
+justify-content: center;
+align-items: center;
+width: 100%;
+padding: 2% 0;
+}
+
+.count{
+    text-align: center;
+    padding-top: 5px;
+}
+
+.count h4{
+    margin-bottom: 0;
+}
+
+.count p{
+    margin-top: 6px;
+}
+
+.count h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:200px; /* some width */
+}
+
+.count h4:hover {
+    overflow: visible;
+    max-width: 200px;
+    white-space: normal;
+}

@@ -1,0 +1,96 @@
+/*------------------------------ Static CSS ------------------------------*/
+header{
+    margin: 0 20%;
+}
+
+header h2{
+    text-align: center;
+}
+
+header hr{
+    width: 100%;
+}
+
+body{
+    font-family: Geneva,sans-serif; 
+    /* margin: 0; */
+    padding: 0;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+footer{
+    position: relative;
+    margin: 0 20%;
+    bottom: 0;
+}
+
+footer p{
+    text-align: center;
+    font-size: larger;
+}
+
+.content-wrapper{
+    margin: 0 20%;
+    text-align: center;
+    min-height: calc(100vh - 71.39px - 77.8px);
+}
+
+
+
+
+ 
+/*------------------------------ Dynamic CSS ------------------------------*/
+form{
+    width: 100%;
+}
+.login{
+    font-size: xx-large;
+    /* line-height: normal; */
+    font-weight: bold;
+}
+ 
+section{
+    text-align: left;
+}
+ 
+section p{
+    /* margin: 0 25%; */
+    font-size: larger;
+    line-height: normal;
+}
+ 
+section input{
+    
+    /* margin: 0 25%; */
+    border-radius: 10px;
+    /* height: 100%; */
+    /* width: 50%; */
+    padding: 0.8%;
+    background-color: rgb(229, 226, 226);
+}
+/*  
+section button{
+    background-color: rgb(26, 25, 25);
+    color: white;
+    font-size: larger;
+    height: 10%;
+    width: 21%;  
+    cursor: pointer; 
+    padding: 0.4%;
+}
+
+button:hover{
+    height: 11%;
+    width: 22%;
+    opacity: 0.7;
+    box-shadow: 3px 3px 10px black;
+}
+button:active{
+    opacity: 0.3;
+} */
+
+header .admin_button {
+    position: absolute;
+    float: left;
+}

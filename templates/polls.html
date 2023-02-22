@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polls</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="../static/css/polls.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a44a2bebd5.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+
+<!-- Static Header -->
+    <header>
+        <h2 class="top">INCOSUF</h2>
+        <hr class="line">
+    </header>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if "Successfully added!" in message %}
+                    <div class="alert alert-success" role="alert">
+                        <center>
+                            <h4>{{message}}</h4>
+                        </center>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        <center>
+                            <h4>{{message}}</h4>
+                        </center>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- {% for category, message in get_flashed_messages(with_categories=true) %}
+        {% if "added" in message or "Successfully" in message or "UPDATED SUCCESSFULLY!" in message%}
+            <div class="alert alert-success" role="alert">
+                <center>
+                    <h4>{{message}}</h4>
+                </center>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                <center><h4>{{message}}</h4></center>
+            </div>
+        {% endif %}
+    {% endfor %} -->
+
+
+<!-- Static Wrapper -->
+<div class="content-wrapper container">
+
+    <!-- Dynamic Content -->
+
+        <br>
+        <center>
+            <div>
+                <center>
+                    <h3><b>POLLS</b></h3>
+                    <br>
+                </center>
+            </div>
+            <div class="inl">
+                <a href="{{ url_for('add_poll') }}">
+                    <button type="button" class="btn btn-success">Add</button>
+                </a>
+            </div>
+            <div class="inl">
+                <a href="{{ url_for('admin_logout') }}">
+                    <button type="button" class="btn btn-danger">Logout</button>
+                </a>
+            </div>
+        </center>
+        <br>
+        
+        {% if poll | length < 1 %}
+            <p>
+                <h3>Nothing to show here...</h3>
+            </p>
+
+        {% else %}
+
+        
+            <div class="cover">
+                {%for p in poll %}
+
+                    <div class="card">
+                        <div class="container">
+                            <h4>
+                                <b id="getPosition">{{ p.poll }}</b>
+                                <b>
+                                    <a href="position/{{p.poll}}">
+                                        <i class="fa-solid fa-greater-than"></i>
+                                    </a>
+                                </b>
+                            </h4>
+
+                            <h6>
+                                <p id="getPosition">
+                                    <b>From: </b>{{p.from_date}}
+                                    <br>
+                                    <b>To: </b>{{p.to_date}}
+                                </p>
+                            </h6>
+                            <center>
+                                <a href="update_poll/{{p.id}}"><button type="button" class="btn btn-primary btn-sm" name="update_button">Update</button></a>
+
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal_{{p.id}}" id="modalButton">
+                                    Delete
+                                </button>
+                            </center>
+                        </div>
+                    </div>
+
+                    <!-- Alert -->
+                    <div class="modal fade" id="exampleModal_{{p.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+                                    <h5 class="modal-title">
+                                        Are you sure you want to delete this poll?
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+
+                                
+
+                                <div class="modal-body">
+                                    <center>
+                                        <b>{{p.poll}}</b>
+                                    </center>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    
+                                    <a href="poll/delete_poll/{{p.id}}"><button type="button" class="btn btn-danger" name="delete_button">Delete</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <center>    
+            <a href="{{ url_for('get_chain') }}" style="text-decoration: none;">
+                <button type="button" class="btn btn-dark btn-lg">View Blockchain</button>
+            </a>
+
+            <a href="{{ url_for('logs') }}" style="text-decoration: none;">
+                <button type="button" class="btn btn-dark btn-lg">View Logs</button>
+            </a>
+        </center>
+</div>
+
+<!-- Static Footer -->
+    <footer>
+        <hr class="line">
+        <p>&#64;2022 by IncoSuf </p>
+    </footer>
+    
+
+</body>
+</html>

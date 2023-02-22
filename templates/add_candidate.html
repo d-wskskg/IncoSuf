@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Candidate</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="../static/css/add_candidate.css">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a44a2bebd5.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<!-- Static Header -->
+<header>
+    <h2 class="top">INCOSUF</h2>
+    <hr class="line">
+</header>
+
+
+    
+
+        <div class="content-wrapper container d-flex flex-column justify-content-center align-items-center">
+            
+            
+
+            <form action="/add_candidate/{{position}}" enctype="multipart/form-data" method="post">
+
+                {% for category, message in get_flashed_messages(with_categories=true) %}
+                    <div class="alert alert-danger container text-center align-items-center justify-content-center" role="alert">
+                        <h4>{{message}}</h4>
+                    </div>
+                {% endfor %}
+
+
+                <center>
+                    <h1>Add Candidate</h1>
+                </center>
+
+
+                <div>
+                    <h5>Full Name:</h5>
+                    <div class="input-group input-group-lg mb-3">
+                        <input type="text" class="form-control" name="name" placeholder="Full Name" id="fullName">
+                    </div>
+                </div>
+
+                <div>
+                    <h5>College:</h5>
+                    <div class="input-group input-group-lg mb-3">
+                        <input type="text" class="form-control" name="college" placeholder="College" id="college">
+                    </div>
+                </div>
+
+                <div>
+                    <h5>Upload Image:</h5>
+                    <div class="mb-3">
+                        <input class="form-control form-control-lg" type="file" id="image" name="image">
+                    </div>
+                </div>
+    
+                <div class="form-floating mb-3 text-center">
+
+                    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" id="modalButton">
+                        Submit
+                    </button>
+
+                    <!-- Alert -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+                                    <h5 class="modal-title" id="exampleModalLabel">
+                                        Are you sure you want to add this candidate?
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+
+                                
+
+                                <div class="modal-body">
+                                    <p id="show_modal"></p>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    
+                                    <input class="btn btn-primary" type="submit" name="submit" id="submit" value="Submit Form">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-grow-1 align-items-center justify-content-center">
+                    <center>
+                        <a href="/candidate_view/{{position}}">
+                            <button type="button" class="btn btn-dark">Back</button>
+                        </a>
+                    </center>
+                </div>
+            </form>
+            
+        </div>
+<!-- Static Footer -->
+<footer>
+    <hr class="line">
+    <p>&#64;2022 by IncoSuf </p>
+</footer>
+
+<!-- jQuery Get Values -->
+<script type="text/javascript">
+    $("#modalButton").click(function() {
+        var fullName = $("#fullName").val();
+        var college = $("#college").val();
+        var image = $("#image").val().replace(/C:\\fakepath\\/i, '');
+
+        var str = "<b>Full Name: </b>" + fullName + "<br><b>College: </b>" + college +"<br><b>Image: </b>" + image;
+
+        $("#show_modal").html(str);
+    })
+</script>
+
+</body>
+</html>
